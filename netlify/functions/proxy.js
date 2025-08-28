@@ -1,6 +1,6 @@
 export async function handler(event, context) {
   const response = await fetch(
-    "https://script.google.com/macros/s/AKfycbxkShoyY80SrdRQNbaokDenLN8KWgE3vc6ZoV6UsXx5aLZsBJlwhHrO6Z782oGZnAx0/exec",
+    "https://script.google.com/macros/s/AKfycbyTUgiuslcVFqG-U5Vd260sPcJYDaGPjMyNPKbV-e-KIhxwtOXU6jtJUS1Ab9ISLY8x/exec",
     {
       method: event.httpMethod,
       headers: {
@@ -22,3 +22,4 @@ export async function handler(event, context) {
     body: data,
   };
 }
+
