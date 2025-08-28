@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <title>رفع الصور</title>
+</head>
+
+<body>
+    <h2>📸 ارفع أو صور صورة</h2>
+
+    <input type="file" id="fileInput" accept="image/*" capture="environment">
+    <button onclick="uploadImage()">رفع</button>
+
+    <p id="status"></p>
+
+    
+    <script>
+        async function uploadImage() {
+            const fileInput = document.getElementById("fileInput");
+            if (fileInput.files.length === 0) {
+                alert("من فضلك اختر صورة");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onload = async () => {
+                const base64 = reader.result.split(",")[1]; // ناخد الـ Base64 بس
+
+                document.getElementById("status").innerText = "جارٍ الرفع...";
+
+                try {
+                    const response = await fetch("https://script.google.com/macros/s/AKfycbw4CNF-MNe647bKTAGmh5iQHx-KkaG6H3ecT9fxzlIV7TbaiLfzddz7Q7RnD2kNiY8i/exec", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: file.name,
+                            type: file.type,
+                            file: base64String
+                        })
+                    });
+
+                    const result = await response.text();
+                    document.getElementById("status").innerText = "✅ تم الرفع: " + result;
+                } catch (error) {
+                    document.getElementById("status").innerText = "❌ حصل خطأ: " + error;
+                }
+            };
+        }
+    </script>
+
+
+
+
+
+    <!-- <script>
+        async function uploadImage() {
+            const fileInput = document.getElementById("fileInput");
+            if (fileInput.files.length === 0) {
+                alert("من فضلك اختر صورة");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            document.getElementById("status").innerText = "جارٍ الرفع...";
+
+            try {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbwurIXlwKhhPmrcZFKWtBXZv3HIVY4YSbpazjUF7RnR9KGZ8S5tTioe6Nkb2tdY6pRH/exec", {
+                    method: "POST",
+                    body: formData,
+                });
+                const result = await response.text();
+                document.getElementById("status").innerText = "✅ تم الرفع: " + result;
+            } catch (error) {
+                document.getElementById("status").innerText = "❌ حصل خطأ: " + error;
+            }
+        }
+    </script>
+     -->
+
+    </body>
+
+</html>
