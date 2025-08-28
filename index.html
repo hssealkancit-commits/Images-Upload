@@ -33,7 +33,7 @@
 
                 try {
                     // هنا بنطلب من Netlify Function (مش Apps Script مباشرة)
-                    const response = await fetch("/netlify/functions/proxy.js", {
+                    const response = await fetch("/.netlify/functions/proxy.js", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -60,5 +60,6 @@
     </script>
 
 </body>
+
 
 </html>
